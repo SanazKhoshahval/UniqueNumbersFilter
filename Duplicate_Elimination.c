@@ -1,4 +1,9 @@
-// Purpose: This program reads in 20 numbers, each of which is between 10 and 100, inclusive. As each number is read, display it only if it’s not a duplicate of a number already read. Provide for the “worst case” in which all 20 numbers are different. Use the smallest possible array to solve this problem.
+// Purpose: This program reads in 20 numbers,
+// each of which is between 10 and 100, inclusive.
+// As each number is read, display it only if it’s not a duplicate of a number already read.
+// Provide for the “worst case” in which all 20 numbers are different.
+// Use the smallest possible array to solve this problem.
+
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdbool.h>
@@ -18,7 +23,7 @@ int main(void) {
 
 	// Get user input
 	while (count < MAX_NUMBERS) {
-		printf("Enter # %d: ", count + 1);
+		printf("Enter # %d : ", count + 1);
 		int num = 0;
 		scanf("%d", &num);
 
@@ -28,22 +33,34 @@ int main(void) {
 		}
 		else if (isUnique(numbers, count, num)) {
 			numbers[count++] = num; // Add to array and increment count if unique
-			printf("The number %d is unique.\n\n", num);
+			printf("The number: %d is unique.\n\n", num);
 		}
 		else {
+			count++;  // Increment count if not unique
 			puts("");
 		}
 	}
 
-	// Display unique numbers
-	printf("\n All of the unique numbers found are: \n");
+	// Print all unique numbers
+	printf("\nAll of the unique numbers found are: \n\n");
+	int counter = 0;  // Counter for non-zero numbers printed
+	printf("    ");  // Initial spacing for alignment
 	for (int i = 0; i < MAX_NUMBERS; i++) {
-		printf("%-3d ", numbers[i]);  // Adjust spacing to align numbers
-		if ((i + 1) % 5 == 0) {
-			printf("\n");  // New line every 5 numbers
-		}
+		if (numbers[i] != 0) {  // Only process non-zero numbers
+			printf("%-6d", numbers[i]);  // Adjust spacing to align numbers
+			counter++;  // Increment the counter
 
+			if (counter % 5 == 0) {
+				printf("\n    ");  // New line every 5 non-zero numbers
+			}
+		}
 	}
+
+	// Add a final newline if the last line isn't complete
+	if (counter % 5 != 0) {
+		printf("\n");
+	}
+	
 }
 
 // Function to check if a number is unique
